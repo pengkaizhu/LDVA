@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+
+<style type="text/css">
+	body {
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+		font-weight:300;
+		font-size:17px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1100px;
+	}
+
+	h1 {
+		font-weight:300;
+        font-size: 30px;
+	}
+
+	.disclaimerbox {
+		background-color: #eee;
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+		padding: 20px;
+	}
+
+	video.header-vid {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+
+	img.header-img {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+
+	img.rounded {
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+
+	a:link,a:visited
+	{
+		color: #1367a7;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #208799;
+	}
+
+	td.dl-link {
+		height: 160px;
+		text-align: center;
+		font-size: 22px;
+	}
+
+	.layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		        0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		        5px 5px 0 0px #fff, /* The second layer */
+		        5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		        10px 10px 0 0px #fff, /* The third layer */
+		        10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+		        15px 15px 0 0px #fff, /* The fourth layer */
+		        15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+		        20px 20px 0 0px #fff, /* The fifth layer */
+		        20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+		        25px 25px 0 0px #fff, /* The fifth layer */
+		        25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		        0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		        5px 5px 0 0px #fff, /* The second layer */
+		        5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		        10px 10px 0 0px #fff, /* The third layer */
+		        10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+
+	.vert-cent {
+		position: relative;
+	    top: 50%;
+	    transform: translateY(-50%);
+	}
+
+	hr
+	{
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+    table td, table td * {
+        vertical-align: top;
+    }
+	
+	.result {
+		border-collapse: collapse;
+	}
+	
+	.result td{
+		text-align: center;
+		width: 30px
+	}
+	
+	#gzsl_result th, #gzsl_result td {
+		padding: 5px 20px;
+	}
+	
+	#fsl_result th, td {
+		padding: 4px 18px;
+	}
+	
+	#da_result th, td {
+		padding: 4px, 18px;
+	}
+	
+	.bottom {
+		border-bottom: 2px solid black;
+	}
+	
+	.top {
+		border-top: 2px solid black;
+	}
+	
+	.right {
+		border-right: 2px solid black;
+	}
+	
+	.method {
+		border-left: 2px solid black;
+		border-right: 2px solid black;
+		width: 150px;
+	}
+	
+	.gzsl_method {
+		border-left: 2px solid black;
+		border-right: 2px solid black;
+		width: 100px;
+	}
+	
+	.da_method {
+		border-left: 2px solid black;
+		border-right: 2px solid black;
+		width: 180px;
+	}
+	
+	td.gzsl_head {
+		text-align: center;
+	}
+	
+	td.second_best {
+		color: blue;
+		font-weight: bold;
+	}
+	
+	td.gzsl_best {
+		color: red;
+		font-weight: bold;
+	}
+	
+	td.best {
+		font-weight: bold;
+	}
+	
+	caption {
+		caption-side: bottom;
+		text-align: left;
+		font-size: 14px;
+		font-style: italic;
+	}
+	
+	strong {
+		font-weight: bold;
+	}
+	
+	#dataset {
+		font-size: 20px;
+		text-align: center;
+	}
+	
+	#dataset th, #dataset td {
+		width: 150px;
+	}
+</style>
+
+<html>
+  <head>
+	  <title>Learning Classifiers for Target Domain with Limited or No Labels</title>
+      <meta property="og:title" content="Learning Classifiers for Target Domain with Limited or No Labels" />
+	  <meta charset="utf-8">
+	  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+  </head>
+
+  <body>
+    <br>
+          <center>
+          	<span style="font-size:32px">Learning Classifiers for Target Domain with Limited or No Labels</span><br><br>
+	  		  <table align=center width=600px>
+	  			  <tr>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:18px"><a href="">Pengkai Zhu</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:18px"><a href="https://scholar.google.com/citations?user=mWfsm1EAAAAJ&hl=en">Hanxiao Wang</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:18px"><a href="http://sites.bu.edu/data/">Venkatesh Saligrama</a></span>
+		  		  		</center>
+		  		  	  </td>
+			  </table><br>
+              <span style="font-size:18px">Electrical and Computer Engineering, Boston University</span><br>
+              <span style="font-size:18px">In ICML 2019, Long Beach, CA</span><br><br>
+
+	  		  <table align=center width=300px>
+	  			  <tr>
+	  	              <td align=center width=50px>
+	  					<center>
+	  						<span style="font-size:22px"><a href='https://arxiv.org/abs/1901.09079'>[Paper]</a>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=200px>
+	  					<center>
+	  						<span style="font-size:22px">[GitHub]</a></span>
+							<span style="font-size:22px">(coming soon)</a></span>
+		  		  		</center>
+		  		  	  </td>
+			  </table>
+          </center>
+
+<!--   		  <br><br>
+		  <hr> -->
+
+  		  
+  		  <table align=center width=850px>
+	  		  <center><h1>Abstract</h1></center>
+	  		  <tr>
+	  		  	<td>
+	  		    </td>
+	  		  </tr>
+			</table>
+				In computer vision applications, such as domain adaptation (DA), few shot learning (FSL) and zero-shot learning (ZSL), we encounter new objects and environments, for which insufficient examples exist to allow for training “models from scratch,” and methods that adapt existing models, trained on the presented training environment, to the new scenario are required. We propose a novel visual attribute encoding method that encodes each image as a low-dimensional probability vector composed of prototypical part-type probabilities. The prototypes are learnt to be representative of all training data. At test-time we utilize this encoding as an input to a classifier. At test-time we freeze the encoder and only learn/adapt the classifier component to limited annotated labels in FSL; new semantic attributes in ZSL. We conduct extensive experiments on benchmark datasets. Our method outperforms state-of-art methods trained for the specific contexts (ZSL, FSL, DA).
+  		  <br><br>
+		  <hr>
+		  <center><h1>Network Architecture</h1></center>
+		  
+		  <table align=center width=850px>
+  			  <tr>
+  	              <td width=400px>
+  					<center>
+  	                	<a href="./images/model.jpg"><img src = "./images/model.jpg" height="200px"></img></href></a><br>
+					</center>
+  	              </td>
+                </tr>
+  	              <td width=400px>
+                      <center>
+  	                	<span style="font-size:14px"><i>The proposed network architecture. This single framekwork can be applied in various problems by pluging in the task-specific predictor. For an input image \(x\), the part feature extractor decompose it into \(M\) parts and extracts associated features \(z_m\), the part-probability encoder then encodes each part feature as a low-dimensional encoding \(\pi_m\) by projecting the features onto a dictionary of primitive proto-typical part-types automatically discovered by our model.</i>
+                      <center>
+  	              </td>
+
+  		  </table>
+		
+		<hr>
+		
+		<center><h1>Low-Dimensional Visual Attribute</h1></center>
+		  
+		  <table align=center width=850px>
+  			  <tr>
+  	              <td width=400px>
+  					<center>
+  	                	<a href="./images/bird.jpg"><img src = "./images/bird.jpg" height="360px"></img></href></a><br>
+					</center>
+  	              </td>
+                </tr>
+  	              <td width=400px>
+                      <center>
+  	                	<span style="font-size:14px"><i>LDVA is generated so that the mixture of the proto-typical part types represents the corresponding part. The objects have similar representation if they have similar visual parts. The resulting LDVA encoding also has a smaller gap to the semantic attributes in the GZSL setting, compared to the original high-dimensional features.</i>
+                      <center>
+  	              </td>
+
+  		  </table>
+		<br>
+		<Strong>How is LDVA effective?</Strong>
+		<ol type="A">
+		<li><em>Low-dimensionality</em>. The backbone network producing LDVA encoding is frozen at test-time. Learning a predictor on \(\pi(x)\) requires relatively fewer examples.</li>
+		<li><em>Compositional Uniqueness</em>. Attention regions are sufficiently representative of important aspects of objects in terms of discriminability of objects. When the associated dictionary for each attention region are sufficiently descriptive, our visual encoding in terms of mixture composition uniquely describes different classes.</li>
+		<li><em>Inter and Intra-Class Variances</em>. Intra-class variance arises from variance in visual appearance of a part-type within the same class and manifests in terms of the strength of the presence of the part-type in the input instance. On the other hand inter-class variance arises from the absence of parts or part-types, which results in smaller similarity in the visual encoding.</li>
+		</ol>
+		
+		<table align=center width=850px>
+  			  <tr>
+  	              <td width=400px>
+  					<center>
+  	                	<a href="./images/pi.jpg"><img src = "./images/pi.jpg" height="180px"></img></href></a><br>
+					</center>
+  	              </td>
+                </tr>
+  	              <td width=400px>
+                      <center>
+  	                	<span style="font-size:14px"><i>Proposed LDVA encoding \(\pi\) on digit datasets (XVHN \(\to\) MNIST). Observe that \(\pi\) for the same class are similar over different datasets. In the same dataset, \(\pi\) are quite different for different classes.</i>
+                      <center>
+  	              </td>
+
+  		  </table>
+		<hr>
+
+ 		<center><h1>Try our code</h1></center>
+		
+		Coming Soon...
+
+      	  <br>
+		  <hr>
+
+  		  <table align=center width=300px>
+	 		<center><h1>Paper</h1></center>
+  			  <tr>
+  	              <!--<td width=300px align=left>-->
+				  <td><a href='https://arxiv.org/abs/1901.09079'><img class="layered-paper-big" style="height:150px" src="./images/paper_thumb.png"/></a></td>
+				  <td><span style="font-size:18pt"><a href='https://arxiv.org/abs/1901.09079'><br>[Download] 5.6MB</a></td>
+  	              </td>
+
+              </tr>
+  		  </table>
+          <br><br>
+          <center><span style="font-size:16pt"><a href="./resources/bibtex.txt">[bibtex]</a></span></center>
+		  <br><br>
+
+          <hr>
+	 		<center><h1>Poster</h1></center>
+     		  <br>
+     		  Coming Soon...
+		  <br><br>
+		  <hr>
+
+  		  <a name="bw_legacy"></a>
+  		  <center><h1>Experiments</h1></center>
+          Here we show extensive evaluation results for gZSL, DA and FSL. For more details on the setup and training procedure, please check our paper.<br>
+		  <center><h2>Few-Shot Learning</h2></center>
+		  
+		  <center>
+		  <table class="result" id="fsl_result">
+			<caption>Few-shot learning classification results on Omniglot and miniImageNet. The highest accuracy is in <span style="font-weight:bold">bold</span>.</caption>
+			<tr class="top">
+				<th rowspan="3" class="method">Methods</th>
+				<th class="right" colspan="4">Omniglot</th>
+				<th class="right" colspan="2">miniImageNet</th>
+			</tr>
+			<tr class="top">
+				<td class="right" colspan="2">5-way Acc.</td>
+				<td class="right" colspan="2">20-way Acc.</td>
+				<td class="right" colspan="2">5-way Acc.</td>
+			</tr>
+			<tr class="bottom">
+				<td>1-shot</th>
+				<td class="right">5-shot</td>
+				<td>1-shot</td>
+				<td class="right">5-shot</td>
+				<td>1-shot</td>
+				<td class="right">5-shot</td>
+			</tr>
+			<tr>
+				<td class="method">Matching Nets</td>
+				<td>98.1</td>
+				<td class="right">98.9</td>
+				<td>93.8</td>
+				<td class="right">98.5</td>
+				<td>43.6</td>
+				<td class="right">55.3</td>
+			</tr>
+			<tr>
+				<td class="method">Meta Nets</td>
+				<td>99.0</td>
+				<td class="right">-</td>
+				<td>97.0</td>
+				<td class="right">-</td>
+				<td>49.2</td>
+				<td class="right">-</td>
+			</tr>
+			<tr>
+				<td class="method">MAML</td>
+				<td>98.7</td>
+				<td class="best right">99.9</td>
+				<td>95.8</td>
+				<td class="right">98.9</td>
+				<td>48.7</td>
+				<td class="right">63.1</td>
+			</tr>
+			<tr>
+				<td class="method">Prototypical Nets</td>
+				<td>98.8</td>
+				<td class="right">99.7</td>
+				<td>96.0</td>
+				<td class="right">98.9</td>
+				<td>49.4</td>
+				<td class="right">68.2</td>
+			</tr>
+			<tr>
+				<td class="method">Relation Nets</td>
+				<td class="best">99.6</td>
+				<td class="right">99.8</td>
+				<td class="best">97.6</td>
+				<td class="right">99.1</td>
+				<td>50.4</td>
+				<td class="right">65.3</td>
+			</tr>
+			<tr>
+				<td class="method">TADAM</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>58.5</td>
+				<td class="right">76.7</td>
+			</tr>
+			<tr>
+				<td class="method">LEO</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>61.7</td>
+				<td class="right">77.6</td>
+			</tr>
+			<tr class="bottom">
+				<td class="method">EA-FSL</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td class="best">62.6</td>
+				<td class="right">78.4</td>
+			</tr>
+			<tr class="bottom">
+				<td class="method">Ours</td>
+				<td>98.9</td>
+				<td class="right">99.8</td>
+				<td>96.5</td>
+				<td class="right best">99.3</td>
+				<td>61.7</td>
+				<td class="right best">78.7</td>
+			</tr>
+		  </table>
+		  </center>
+		  <br>
+		  
+		  <center><h2>Generalized Zero-Shot Learning</h2></center>
+		  <center>
+		  <table class="result" id="gzsl_result">
+			<caption>gZSL learning results on CUB, AWA2 and aPY. ts = test classes (unseen classes), tr = train classes (seen classes), H = Harmonic mean. The accuracy is class-average Top-1 in %. The highest accuracy is in <span style="color:red">red</span> color and the second best is in <span style="color:blue">blue</span>.</caption>
+            <tr class="top">
+			  <th rowspan="2" class="gzsl_method">Methods</th>
+			  <th class="right" colspan="3">CUB</th>
+			  <th class="right" colspan="3">AWA2</th>
+			  <th class="right" colspan="3">APY</th>
+			</tr>
+			<tr class="bottom">
+			  <td class="gzsl_head">ts</td>
+			  <td class="gzsl_head">tr</td>
+			  <td class="gzsl_head right">H</td>
+			  <td class="gzsl_head">ts</td>
+			  <td class="gzsl_head">tr</td>
+			  <td class="gzsl_head right">H</td>
+			  <td class="gzsl_head">ts</td>
+			  <td class="gzsl_head">tr</td>
+			  <td class="gzsl_head right">H</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">SJE</td>
+				<td>23.5</td>
+				<td>59.2</td>
+				<td class="right">33.6</td>
+				<td>8.0</td>
+				<td>73.9</td>
+				<td class="right">14.4</td>
+				<td>3.7</td>
+				<td>55.7</td>
+				<td class="right">6.9</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">SAE</td>
+				<td>7.8</td>
+				<td>54.0</td>
+				<td class="right">13.6</td>
+				<td>1.1</td>
+				<td>82.2</td>
+				<td class="right">2.2</td>
+				<td>0.4</td>
+				<td>80.9</td>
+				<td class="right">0.9</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">SSE</td>
+				<td>8.5</td>
+				<td>46.9</td>
+				<td class="right">14.4</td>
+				<td>8.1</td>
+				<td>82.5</td>
+				<td class="right">14.8</td>
+				<td>0.2</td>
+				<td>78.9</td>
+				<td class="right">0.4</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">GFZSL</td>
+				<td>0.0</td>
+				<td>45.7</td>
+				<td class="right">0.0</td>
+				<td>2.5</td>
+				<td>80.1</td>
+				<td class="right">4.8</td>
+				<td>0.0</td>
+				<td class="second_best">83.3</td>
+				<td class="right">0.0</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">CONSE</td>
+				<td>1.6</td>
+				<td>72.2</td>
+				<td class="right">3.1</td>
+				<td>0.5</td>
+				<td>90.6</td>
+				<td class="right">1.0</td>
+				<td>0.0</td>
+				<td class="gzsl_best">91.2</td>
+				<td class="right">0.0</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">ALE</td>
+				<td>23.7</td>
+				<td>62.8</td>
+				<td class="right">34.4</td>
+				<td>14.0</td>
+				<td>81.8</td>
+				<td class="right">23.9</td>
+				<td>4.6</td>
+				<td>73.7</td>
+				<td class="right">8.7</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">SYNC</td>
+				<td>11.5</td>
+				<td>70.9</td>
+				<td class="right">19.8</td>
+				<td>10.0</td>
+				<td>90.5</td>
+				<td class="right">18.0</td>
+				<td>7.4</td>
+				<td>66.3</td>
+				<td class="right">13.3</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">DEVISE</td>
+				<td>23.8</td>
+				<td>53.0</td>
+				<td class="right">32.8</td>
+				<td>17.1</td>
+				<td>74.7</td>
+				<td class="right">27.8</td>
+				<td>4.9</td>
+				<td>76.9</td>
+				<td class="right">9.2</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">PSRZSL</td>
+				<td>24.6</td>
+				<td>54.3</td>
+				<td class="right">33.9</td>
+				<td>20.7</td>
+				<td>73.8</td>
+				<td class="right">32.3</td>
+				<td>13.5</td>
+				<td>51.4</td>
+				<td class="right">21.4</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">SP-AEN</td>
+				<td>34.7</td>
+				<td>70.6</td>
+				<td class="right">46.6</td>
+				<td>23.3</td>
+				<td class="second_best">90.9</td>
+				<td class="right">37.1</td>
+				<td>13.7</td>
+				<td>63.4</td>
+				<td class="right">22.6</td>
+			</tr>
+			<tr class="top">
+				<td class="gzsl_method" style="font-style:italic;font-size:14px">Generative ZSL</td>
+				<td class="right" colspan="3"></td>
+				<td class="right" colspan="3"></td>
+				<td class="right" colspan="3"></td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">GDAN</td>
+				<td>39.3</td>
+				<td>66.7</td>
+				<td class="right">49.5</td>
+				<td>32.1</td>
+				<td>67.5</td>
+				<td class="right">43.5</td>
+				<td class="second_best">30.4</td>
+				<td>75.0</td>
+				<td class="second_best right">43.4</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">CADA-VAE</td>
+				<td>51.6</td>
+				<td>53.5</td>
+				<td class="right">52.4</td>
+				<td class="second_best">55.8</td>
+				<td>75.0</td>
+				<td class="second_best right">63.9</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">-</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">3ME</td>
+				<td>49.6</td>
+				<td>60.1</td>
+				<td class="right">54.3</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">-</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">SE-GZSL</td>
+				<td>41.5</td>
+				<td>53.3</td>
+				<td class="right">46.7</td>
+				<td class="gzsl_best">58.3</td>
+				<td>68.1</td>
+				<td class="right">62.8</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">-</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">LSD</td>
+				<td class="second_best">53.1</td>
+				<td>59.4</td>
+				<td class="right second_best">56.1</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>22.4</td>
+				<td>81.3</td>
+				<td class="right">35.1</td>
+			</tr>
+			<tr>
+				<td class="gzsl_method">DA-GZSL</td>
+				<td>47.9</td>
+				<td>56.9</td>
+				<td class="right">51.8</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">-</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">-</td>
+			</tr>
+			<tr class="top">
+				<td class="gzsl_method" style="font-weight:bold">Ours</td>
+				<td>33.4</td>
+				<td class="gzsl_best">87.5</td>
+				<td class="right">48.4</td>
+				<td>41.6</td>
+				<td class="gzsl_best">91.3</td>
+				<td class="right">57.2</td>
+				<td>24.5</td>
+				<td>72.0</td>
+				<td class="right">36.6</td>
+			</tr>
+			<tr class="bottom">
+				<td class="gzsl_method" style="font-weight:bold">Ours + CS</td>
+				<td class="gzsl_best">59.2</td>
+				<td class="second_best">74.6</td>
+				<td class="gzsl_best right">66.0</td>
+				<td>54.6</td>
+				<td>87.7</td>
+				<td class="gzsl_best right">67.3</td>
+				<td class="gzsl_best">41.1</td>
+				<td>68.0</td>
+				<td class="gzsl_best right">51.2</td>
+			</tr>
+		  </table>
+		  </center>
+		  
+		<br>
+		<center><h2>Domain Adaptation</h2></center>
+		
+		<center>
+		<table class="result" id="da_result">
+			<caption>Domain Adaptation classification results. M = MNIST, U = USPS, S = SVHN. The highest accuracy is in <span style="font-weight:bold">bold</span>.</caption>
+			<tr class="top">
+				<th class="da_method">Methods</th>
+				<th>M\(\to\)U</th>
+				<th>U\(\to\)M</th>
+				<th class="right">S\(\to\)M</th>
+			</tr>
+			<tr class="top">
+				<td class="da_method">Gradient reversal</td>
+				<td>77.1</td>
+				<td>73.0</td>
+				<td class="right">73.9</td>
+			</tr>
+			<tr>
+				<td class="da_method">Domain confusion</td>
+				<td>79.1</td>
+				<td>66.5</td>
+				<td class="right">68.1</td>
+			</tr>
+			<tr>
+				<td class="da_method">CoGAN</td>
+				<td>91.2</td>
+				<td>89.1</td>
+				<td class="right">-</td>
+			</tr>
+			<tr>
+				<td class="da_method">ADDA</td>
+				<td>89.4</td>
+				<td>90.1</td>
+				<td class="right">76.0</td>
+			</tr>
+			<tr>
+				<td class="da_method">DTN</td>
+				<td>-</td>
+				<td>-</td>
+				<td class="right">84.4</td>
+			</tr>
+			<tr>
+				<td class="da_method">UNIT</td>
+				<td>96.0</td>
+				<td>93.6</td>
+				<td class="right">90.5</td>
+			</tr>
+			<tr>
+				<td class="da_method">CyCADA</td>
+				<td>95.6</td>
+				<td>96.5</td>
+				<td class="right">90.4</td>
+			</tr>
+			<tr>
+				<td class="da_method">MSTN</td>
+				<td>92.9</td>
+				<td>-</td>
+				<td class="right">91.7</td>
+			</tr>
+			<tr class="top">
+				<td class="da_method">Ours (source \(\pi\))</td>
+				<td>94.8</td>
+				<td>96.1</td>
+				<td class="right">82.4</td>
+			</tr>
+			<tr class="bottom">
+				<td class="da_method">Ours (joint \(\pi\))</td>
+				<td class="best">98.8</td>
+				<td class="best">96.8</td>
+				<td class="right best">95.2</td>
+			</tr>
+		</table>
+		</center>
+		<center>
+		
+		<hr>
+		<center><h1>Datasets</h1></center>
+		<center>
+		<table id="dataset">
+			<tr>
+				<th>FSL</th>
+				<th>gZSL</th>
+				<th>DA</th>
+			</tr>
+			<tr>
+				<td><a href="https://github.com/brendenlake/omniglot">[Omniglot]</a></td>
+				<td><a href="https://www.mpi-inf.mpg.de/departments/computer-vision-and-multimodal-computing/research/zero-shot-learning/zero-shot-learning-the-good-the-bad-and-the-ugly/">[Protocol]</a></td>
+				<td><a href="http://yann.lecun.com/exdb/mnist/">[MNIST]</a></td>
+			</tr>
+			<tr>
+				<td><a href="https://github.com/gidariss/FewShotWithoutForgetting/blob/master/dataloader.py">[miniImageNet]</a></td>
+				<td><a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html">[CUB]</a></td>
+				<td><a href="http://ufldl.stanford.edu/housenumbers/">[SVHN]</a></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><a href="https://cvml.ist.ac.at/AwA2/">[AWA2]</a></td>
+				<td><a href="https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass.html#usps">[USPS]</a></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><a href="http://vision.cs.uiuc.edu/attributes/">[aPY]</a></td>
+			</tr>
+		</table>
+		
+  	  	<hr>
+  		  <table align=center width=1100px>
+  			  <tr>
+  	              <td>
+  					<left>
+	  		  <center><h1>Acknowledgements</h1></center>
+					This work was supported by the Office of Naval Research Grant N0014-18-1-2257, NGA-NURI HM1582-09-1-0037 and the U.S. Department of Homeland Security, Science and Technology Directorate, Office of University Programs, under Grant 2013-ST-061-ED0001.
+			</left>
+		</td>
+			 </tr>
+		</table>
+
+		<br><br>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-24665197-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
